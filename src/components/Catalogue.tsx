@@ -44,6 +44,7 @@ export default function Catalogue() {
     <section
       id="baskets"
       className="relative px-6 md:px-12 py-24 md:py-32 scroll-mt-24"
+      style={{ background: "var(--color-bg)", color: "var(--color-text)" }}
     >
       <div id="montres" className="absolute -top-24" />
 
@@ -72,11 +73,12 @@ export default function Catalogue() {
             <button
               key={cat}
               onClick={() => setFiltre(cat)}
-              className={`font-mono text-xs uppercase tracking-wide px-5 py-2 rounded-full border transition-colors ${
+              className="font-mono text-xs uppercase tracking-wide px-5 py-2 rounded-full border transition-colors"
+              style={
                 filtre === cat
-                  ? "bg-[var(--color-light)] text-[var(--color-dark)] border-[var(--color-light)]"
-                  : "border-white/25 hover:border-white/50"
-              }`}
+                  ? { background: "var(--color-text)", color: "var(--color-bg)", borderColor: "var(--color-text)" }
+                  : { borderColor: "var(--color-line)" }
+              }
             >
               {cat === "tout" ? "Tout" : cat === "basket" ? "Baskets" : "Montres"}
             </button>
@@ -89,7 +91,7 @@ export default function Catalogue() {
       ) : produitsFiltres.length === 0 ? (
         <p className="font-mono text-xs opacity-50">Aucun produit pour le moment.</p>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px" style={{ background: "var(--color-line)" }}>
           <AnimatePresence mode="popLayout">
             {produitsFiltres.map((produit) => (
               <motion.div
@@ -102,18 +104,20 @@ export default function Catalogue() {
               >
                 <Link
                   href={`/produit/${produit.id}`}
-                  className="group block bg-[var(--color-dark)] p-6 md:p-8 min-h-[280px] md:min-h-[340px] flex flex-col hover:bg-white/5 transition-colors"
+                  className="group block p-6 md:p-8 flex flex-col transition-colors"
+                  style={{ background: "var(--color-bg)" }}
                 >
                   <span
-                    className={`font-mono text-[10px] uppercase tracking-widest w-fit px-2.5 py-1 rounded-full mb-6 ${
+                    className="font-mono text-[10px] uppercase tracking-widest w-fit px-2.5 py-1 rounded-full mb-6"
+                    style={
                       produit.categorie === "basket"
-                        ? "bg-[var(--color-blue)]/20 text-[#7f95ff]"
-                        : "bg-[var(--color-brass)]/20 text-[var(--color-brass)]"
-                    }`}
+                        ? { background: "color-mix(in srgb, var(--color-blue) 20%, transparent)", color: "var(--color-blue)" }
+                        : { background: "color-mix(in srgb, var(--color-brass) 20%, transparent)", color: "var(--color-brass)" }
+                    }
                   >
                     {produit.categorie === "basket" ? "Basket" : "Montre"}
                   </span>
-                  <div className="flex-1 flex items-center justify-center text-5xl opacity-80 overflow-hidden rounded-lg">
+                  <div className="aspect-square flex items-center justify-center text-5xl opacity-80 overflow-hidden rounded-lg">
                     {produit.image_url ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
